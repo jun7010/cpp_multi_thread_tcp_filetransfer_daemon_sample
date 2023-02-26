@@ -1,0 +1,19 @@
+CC		= g++
+CFLAGS		= -g -c -Wall
+LDFLAGS		= -lpthread
+SOURCES		= ./src/FDEncodeDaemon/FDEncodeDaemon_test.cpp ./src/lib.opensource/tcpsockets/tcpstream.cpp ./src/lib.opensource/tcpsockets/tcpconnector.cpp ./src/lib.opensource/threads/thread.cpp ./src/lib.opensource/tcpsockets/tcpacceptor.cpp ./src/lib.server/SocketFunction.cpp ./src/lib.server/EncodeDaemonFunction.cpp ./src/lib.filecontrol/FileControl.cpp
+INCLUDES	= -I. -I./src/lib.opensource/tcpsockets -I./inc -I./src/lib.opensource/threads -I./src/lib.opensource/wqueue
+OBJECTS		= $(SOURCES:.cpp=.o)
+TARGET		= client_test
+
+all: $(SOURCES) $(TARGET)
+
+$(TARGET): $(OBJECTS) 
+	$(CC) $(OBJECTS) $(LDFLAGS) -o $@
+
+.cpp.o:
+	$(CC) $(CFLAGS) $(INCLUDES) $< -o $@
+
+clean:
+	rm -rf $(OBJECTS) $(TARGET)
+
